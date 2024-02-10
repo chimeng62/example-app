@@ -41,15 +41,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:     
-      - name: Build Docker image
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{ secrets.RENDER_SERVICE_ID }}.render.com/example-laravel-app:latest
+      # - name: Build Docker image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     push: true
+      #     tags: ${{ secrets.RENDER_SERVICE_ID }}.render.com/example-laravel-app:latest
 
       - name: Render Deploy Action
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          image: ${{ secrets.RENDER_SERVICE_ID }}.render.com/your-app-name:latest
-          password: ${{ secrets.RENDER_API_KEY }}
+          # image: ${{ secrets.RENDER_SERVICE_ID }}.render.com/your-app-name:latest
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-success: true
