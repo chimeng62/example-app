@@ -46,9 +46,9 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.RENDER_SERVICE_ID }}.render.com/example-laravel-app:latest
-          
-      - name: Deploy to Render
-        uses: render/render-action@v2
+
+      - name: Render Deploy Action
+        uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
           image: ${{ secrets.RENDER_SERVICE_ID }}.render.com/your-app-name:latest
