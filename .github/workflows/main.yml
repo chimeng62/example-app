@@ -1,4 +1,3 @@
-YAML
 name: CI - Laravel Build and Test
 
 on:
