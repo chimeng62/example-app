@@ -7,10 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  laravel-tests:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
@@ -35,3 +33,23 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+    
+
+  deploy:
+    name: Deploy
+    needs: [test]
+    runs-on: ubuntu-latest
+    
+    steps:     
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.RENDER_SERVICE_ID }}.render.com/example-laravel-app:latest
+          
+      - name: Deploy to Render
+        uses: render/render-action@v2
+        with:
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          image: ${{ secrets.RENDER_SERVICE_ID }}.render.com/your-app-name:latest
+          password: ${{ secrets.RENDER_API_KEY }}
