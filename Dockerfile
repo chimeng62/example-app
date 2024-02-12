@@ -1,8 +1,7 @@
 # Use the official PHP image as base
-FROM php:8.1-fpm
-
+FROM php:8.3-fpm
 # Set working directory inside the container
-WORKDIR /var/www/html
+# WORKDIR /var/www/html
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -22,16 +21,18 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy the Laravel application files to the container
-COPY . .
+WORKDIR /app
+COPY . /app
 
-# Install PHP dependencies
-RUN composer update
 #this fixes compose install error
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN composer install --no-progress --no-scripts --no-interaction --no-dev
+# Install PHP dependencies
+RUN composer update
+RUN composer install --no-progress --no-scripts --no-interaction
 
 # Copy the .env.example file and generate application key
-RUN cp .env.example .env && php artisan key:generate
+RUN cp .env.example .env 
+RUN php artisan key:generate
 
 # Expose port 9000 to the outside world
 EXPOSE 9000
