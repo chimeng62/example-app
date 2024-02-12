@@ -39,6 +39,6 @@ RUN php artisan key:generate
 EXPOSE 9000
 
 # Command to run the Laravel application
-CMD ["/start.sh"]
-#below is inside "/start.sh"
+CMD ["scripts/00-laravel-deploy.sh"]
+#below is inside "/00-laravel-deploy.sh"
 # CMD ["php", "artisan", "serve", "--host", "0.0.0.0"]
