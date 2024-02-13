@@ -12,5 +12,8 @@ php artisan route:cache
 echo "Running migrations..."
 php artisan migrate --force
 
+echo "Seeding table"
+php artisan db:seed --class=BookSeeder
+
 echo "Starting app"
 php artisan serve --host 0.0.0.0
