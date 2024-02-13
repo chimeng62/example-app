@@ -37,7 +37,7 @@ RUN php artisan key:generate
 
 # Expose port 9000 to the outside world
 EXPOSE 9000
-#add execute permission
+#add execute permission to script
 RUN chmod +x scripts/00-laravel-deploy.sh
 # Command to run the Laravel application
 CMD ["scripts/00-laravel-deploy.sh"]
